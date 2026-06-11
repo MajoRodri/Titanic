@@ -232,7 +232,8 @@ st.markdown("""
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("Titanic-Dataset.csv")
+    url = "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+    df = pd.read_csv(url)
     df["FamilySize"] = df["SibSp"] + df["Parch"]
     df["FamilyGroup"] = df["FamilySize"].apply(
         lambda x: "Solo" if x == 0 else ("Pequeña (1-3)" if x <= 3 else "Grande (4+)")

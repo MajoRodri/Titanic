@@ -14,32 +14,217 @@ st.set_page_config(
 
 st.markdown("""
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+    /* ── Global ── */
+    html, body, [class*="css"] {
+        font-family: 'Inter', sans-serif;
+    }
+
+    .stApp {
+        background:
+            radial-gradient(circle at top left, rgba(52, 152, 219, 0.14), transparent 30rem),
+            radial-gradient(circle at 85% 15%, rgba(231, 76, 60, 0.12), transparent 28rem),
+            linear-gradient(180deg, rgba(13, 27, 42, 0.03) 0%, rgba(255, 255, 255, 0) 22rem);
+    }
+
+    .main .block-container {
+        padding-top: 1.4rem;
+        padding-bottom: 3rem;
+        max-width: 1320px;
+        animation: fade-in 0.45s ease-out;
+    }
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* ── Sidebar ── */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #0d1b2a 0%, #1a2744 100%) !important;
+        border-right: 1px solid rgba(231, 76, 60, 0.25);
+        box-shadow: 12px 0 30px rgba(13, 27, 42, 0.18);
+    }
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] span,
+    [data-testid="stSidebar"] label,
+    [data-testid="stSidebar"] div {
+        color: #cbd5e0 !important;
+    }
+    [data-testid="stSidebar"] h1 {
+        font-family: 'Playfair Display', serif !important;
+        color: #ffffff !important;
+        letter-spacing: 0.05em;
+    }
+    [data-testid="stSidebar"] strong {
+        color: #e2e8f0 !important;
+    }
+    [data-testid="stSidebar"] hr {
+        border-color: rgba(231,76,60,0.3) !important;
+    }
+    [data-testid="stSidebar"] [data-testid="stRadio"] label {
+        padding: 0.48rem 0.75rem;
+        border-radius: 8px;
+        transition: background 0.2s, transform 0.2s, color 0.2s;
+    }
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:hover {
+        background: rgba(231, 76, 60, 0.15);
+        color: #fff !important;
+        transform: translateX(4px);
+    }
+    [data-testid="stSidebar"] [data-testid="stRadio"] label:has(input:checked) {
+        background: linear-gradient(90deg, rgba(231, 76, 60, 0.34), rgba(52, 152, 219, 0.18));
+        box-shadow: inset 3px 0 0 #e74c3c;
+    }
+
+    /* ── Metrics ── */
+    [data-testid="metric-container"] {
+        background: linear-gradient(135deg, rgba(44,82,130,0.18) 0%, rgba(26,39,68,0.25) 100%);
+        border: 1px solid rgba(52, 152, 219, 0.22);
+        border-radius: 14px;
+        padding: 1rem 1.2rem;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 18px rgba(13, 27, 42, 0.08);
+        transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    }
+    [data-testid="metric-container"]:hover {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow: 0 8px 28px rgba(52, 152, 219, 0.18);
+        border-color: rgba(231, 76, 60, 0.32);
+    }
+
+    /* ── HR dividers ── */
+    hr {
+        border: none !important;
+        height: 1px !important;
+        background: linear-gradient(90deg, transparent, rgba(231,76,60,0.45), transparent) !important;
+        margin: 1.8rem 0 !important;
+    }
+
+    /* ── Chapter header ── */
     .chapter-header {
-        font-size: 1.9rem;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.95rem;
         font-weight: 700;
         color: var(--text-color);
         border-left: 6px solid #e74c3c;
-        padding-left: 1rem;
+        padding: 0.5rem 1rem;
         margin: 2rem 0 0.5rem 0;
+        background: linear-gradient(90deg, rgba(231,76,60,0.07) 0%, transparent 65%);
+        border-radius: 0 10px 10px 0;
+        letter-spacing: -0.01em;
+        box-shadow: 0 8px 24px rgba(13, 27, 42, 0.06);
     }
+
+    /* ── Insight box ── */
     .insight-box {
-        background-color: rgba(52, 152, 219, 0.12);
+        background: linear-gradient(135deg, rgba(52,152,219,0.09) 0%, rgba(52,152,219,0.03) 100%);
         border-left: 5px solid #3498db;
-        padding: 0.9rem 1.2rem;
-        border-radius: 0 8px 8px 0;
+        padding: 1rem 1.4rem;
+        border-radius: 0 12px 12px 0;
         margin: 1rem 0 1.5rem 0;
-        font-size: 0.97rem;
+        font-size: 0.96rem;
         color: var(--text-color);
+        box-shadow: 0 2px 14px rgba(52,152,219,0.07);
+        line-height: 1.75;
+        transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     }
+    .insight-box:hover {
+        transform: translateX(3px);
+        border-left-color: #e74c3c;
+        box-shadow: 0 8px 24px rgba(52,152,219,0.14);
+    }
+
+    /* ── Quote box ── */
     .quote-box {
-        background-color: rgba(26, 26, 46, 0.85);
-        color: #ecf0f1;
-        padding: 1.5rem 2rem;
-        border-radius: 10px;
+        background: linear-gradient(135deg, #0d1b2a 0%, #1a2744 100%);
+        color: #e2e8f0;
+        padding: 2rem 2.5rem;
+        border-radius: 16px;
+        font-family: 'Playfair Display', serif;
         font-style: italic;
-        font-size: 1.1rem;
-        margin: 1.5rem 0;
+        font-size: 1.2rem;
+        margin: 2rem 0;
         text-align: center;
+        border: 1px solid rgba(231,76,60,0.2);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.28);
+        line-height: 1.85;
+        position: relative;
+        overflow: hidden;
+    }
+    .quote-box:before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.08) 45%, transparent 70%);
+        transform: translateX(-120%);
+        transition: transform 0.7s ease;
+    }
+    .quote-box:hover:before {
+        transform: translateX(120%);
+    }
+
+    /* ── Plotly charts ── */
+    [data-testid="stPlotlyChart"] {
+        border-radius: 14px;
+        overflow: hidden;
+        border: 1px solid rgba(52, 152, 219, 0.14);
+        box-shadow: 0 6px 22px rgba(13, 27, 42, 0.12);
+        transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    [data-testid="stPlotlyChart"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 34px rgba(13, 27, 42, 0.2);
+        border-color: rgba(231, 76, 60, 0.25);
+    }
+    [data-testid="stPlotlyChart"] .modebar {
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+    [data-testid="stPlotlyChart"]:hover .modebar {
+        opacity: 1;
+    }
+
+    /* ── Subheaders ── */
+    h2, h3 {
+        letter-spacing: -0.02em;
+    }
+    h1 {
+        font-family: 'Playfair Display', serif !important;
+        text-shadow: 0 12px 28px rgba(13, 27, 42, 0.12);
+    }
+
+    /* ── Tables ── */
+    table {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    thead tr th {
+        background: rgba(44,82,130,0.25) !important;
+    }
+    tbody tr:hover td {
+        background: rgba(52,152,219,0.06) !important;
+    }
+
+    @media (max-width: 760px) {
+        .main .block-container {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .chapter-header {
+            font-size: 1.45rem;
+        }
+        .quote-box {
+            padding: 1.4rem 1.1rem;
+            font-size: 1rem;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -65,6 +250,61 @@ CLASS_COLORS = {"Primera Clase": "#2c3e50", "Segunda Clase": "#2980b9", "Tercera
 CLASS_ORDER = ["Primera Clase", "Segunda Clase", "Tercera Clase"]
 SURVIVAL_COLORS = {"Sí": "#2ecc71", "No": "#e74c3c"}
 SEX_COLORS = {"Hombre": "#3498db", "Mujer": "#e91e8c"}
+
+PLOTLY_CONFIG = {
+    "displaylogo": False,
+    "scrollZoom": True,
+    "responsive": True,
+    "modeBarButtonsToRemove": ["lasso2d", "select2d"],
+}
+
+px.defaults.template = "plotly_white"
+
+
+def render_chart(fig, height=None):
+    layout_updates = dict(
+        template="plotly_white",
+        hovermode="closest",
+        margin=dict(l=28, r=24, t=72, b=42),
+        paper_bgcolor="#ffffff",
+        plot_bgcolor="#f7fafc",
+        font=dict(family="Inter, sans-serif", size=13, color="#172033"),
+        title=dict(font=dict(family="Playfair Display, serif", size=20, color="#111827"), x=0.02, xanchor="left"),
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1,
+            font=dict(color="#172033"),
+            bgcolor="rgba(255,255,255,0.92)",
+            bordercolor="rgba(52,152,219,0.18)",
+            borderwidth=1,
+        ),
+        transition=dict(duration=450, easing="cubic-in-out"),
+    )
+    if height is not None:
+        layout_updates["height"] = height
+    fig.update_layout(**layout_updates)
+    fig.update_xaxes(
+        showgrid=True,
+        gridcolor="rgba(13,27,42,0.07)",
+        linecolor="rgba(13,27,42,0.18)",
+        tickfont=dict(color="#172033"),
+        title_font=dict(color="#172033"),
+        zeroline=False,
+        automargin=True,
+    )
+    fig.update_yaxes(
+        showgrid=True,
+        gridcolor="rgba(13,27,42,0.07)",
+        linecolor="rgba(13,27,42,0.18)",
+        tickfont=dict(color="#172033"),
+        title_font=dict(color="#172033"),
+        zeroline=False,
+        automargin=True,
+    )
+    st.plotly_chart(fig, use_container_width=True, config=PLOTLY_CONFIG)
 
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 st.sidebar.title("🚢 Titanic")
@@ -139,7 +379,7 @@ elif selected == "👥  I. Perfil de los Pasajeros":
     )
     fig.update_traces(textposition="outside")
     fig.update_layout(showlegend=False, xaxis_title="", yaxis_title="Número de Pasajeros")
-    st.plotly_chart(fig, use_container_width=True)
+    render_chart(fig)
 
     st.markdown("""<div class="insight-box">
 💡 <b>Hallazgo:</b> El <b>55.1 %</b> de los pasajeros viajaba en Tercera Clase — la mayoría eran emigrantes
@@ -165,7 +405,7 @@ Solo el 24.2 % viajaba en Primera Clase.
     fig.add_vline(x=median_age, line_dash="dot", line_color="#2ecc71",
                   annotation_text=f"Mediana: {median_age:.1f} años", annotation_position="top left")
     fig.update_layout(xaxis_title="Edad", yaxis_title="Número de Pasajeros")
-    st.plotly_chart(fig, use_container_width=True)
+    render_chart(fig)
 
     st.markdown("""<div class="insight-box">
 💡 <b>Hallazgo:</b> La mayoría de los pasajeros tenía entre <b>20 y 35 años</b> — jóvenes adultos en busca de
@@ -184,7 +424,7 @@ nuevas oportunidades. Hay un segundo pico para bebés y niños pequeños, reflej
         category_orders={"Clase": CLASS_ORDER},
     )
     fig.update_layout(showlegend=False)
-    st.plotly_chart(fig, use_container_width=True)
+    render_chart(fig)
 
     st.markdown("""<div class="insight-box">
 💡 <b>Hallazgo:</b> Existe una clara <b>estratificación de edad por clase</b>:
@@ -210,14 +450,25 @@ elif selected == "💰  II. El Dinero a Bordo":
                            labels={"Fare": "Tarifa (£)", "count": "Pasajeros"})
         fig.add_vline(x=df["Fare"].median(), line_dash="dash", line_color="#e74c3c",
                       annotation_text=f"Mediana: £{df['Fare'].median():.0f}")
-        st.plotly_chart(fig, use_container_width=True)
+        render_chart(fig)
     with col2:
-        fig = px.histogram(df[df["Fare"] > 0], x="Fare", nbins=50,
-                           log_x=True,
-                           color_discrete_sequence=["#e67e22"],
-                           title="Escala Logarítmica",
-                           labels={"Fare": "Tarifa (£) — log", "count": "Pasajeros"})
-        st.plotly_chart(fig, use_container_width=True)
+        fare_positive = df.loc[df["Fare"] > 0, "Fare"]
+        fare_bins = np.logspace(np.log10(fare_positive.min()), np.log10(fare_positive.max()), 36)
+        fare_groups = pd.cut(fare_positive, bins=fare_bins, include_lowest=True)
+        fare_log = fare_groups.value_counts(sort=False).reset_index()
+        fare_log.columns = ["Rango", "Pasajeros"]
+        fare_log["Fare"] = fare_log["Rango"].apply(lambda r: np.sqrt(r.left * r.right))
+        fare_log = fare_log[fare_log["Pasajeros"] > 0]
+        fig = px.bar(fare_log, x="Fare", y="Pasajeros",
+                     log_x=True,
+                     color_discrete_sequence=["#e67e22"],
+                     title="Escala Logarítmica",
+                     labels={"Fare": "Tarifa (£) — log", "Pasajeros": "Pasajeros"})
+        fig.update_traces(
+            hovertemplate="Tarifa: £%{x:.2f}<br>Pasajeros: %{y}<extra></extra>",
+            marker_line_width=0,
+        )
+        render_chart(fig)
 
     st.markdown("""<div class="insight-box">
 💡 <b>Hallazgo:</b> La mediana de las tarifas era <b>£14</b>, pero el máximo llegó a <b>£512</b>.
@@ -236,7 +487,7 @@ La distribución extremadamente sesgada revela una enorme <b>desigualdad económ
         category_orders={"Clase": CLASS_ORDER},
     )
     fig.update_layout(showlegend=False)
-    st.plotly_chart(fig, use_container_width=True)
+    render_chart(fig)
 
     c1, c2, c3 = st.columns(3)
     c1.metric("1ª Clase — promedio", f"£{df[df['Pclass']==1]['Fare'].mean():.0f}")
@@ -266,7 +517,7 @@ Incluso dentro de la Primera Clase la variación fue enorme: de £25 a £512.
     fig.add_annotation(text=f"Correlación: {corr:.2f}", xref="paper", yref="paper",
                        x=0.02, y=0.97, showarrow=False,
                        bgcolor="white", bordercolor="gray", borderwidth=1, font=dict(size=13))
-    st.plotly_chart(fig, use_container_width=True)
+    render_chart(fig)
 
     st.markdown("""<div class="insight-box">
 💡 <b>Hallazgo:</b> La correlación entre edad y tarifa es prácticamente nula (<b>0.09</b>).
@@ -292,7 +543,7 @@ elif selected == "🌊  III. La Noche del Hundimiento":
         hole=0.42, title="¿Quién Sobrevivió al Titanic?",
     )
     fig.update_traces(textposition="outside", textinfo="percent+label+value")
-    st.plotly_chart(fig, use_container_width=True)
+    render_chart(fig)
 
     st.markdown("""<div class="insight-box">
 💡 <b>Hallazgo:</b> Casi <b>2 de cada 3 pasajeros murió</b> esa noche.
@@ -316,7 +567,7 @@ sobre justicia y desigualdad.
             labels={"Cantidad": "Pasajeros"},
             category_orders={"Clase": CLASS_ORDER},
         )
-        st.plotly_chart(fig, use_container_width=True)
+        render_chart(fig)
     with col2:
         fig = px.bar(
             surv_pct, x="Clase", y="Porcentaje",
@@ -328,7 +579,7 @@ sobre justicia y desigualdad.
         )
         fig.update_traces(textposition="outside")
         fig.update_layout(showlegend=False)
-        st.plotly_chart(fig, use_container_width=True)
+        render_chart(fig)
 
     st.markdown("""<div class="insight-box">
 💡 <b>Hallazgo:</b> 1ª Clase: <b>63 %</b> | 2ª Clase: <b>47 %</b> | 3ª Clase: <b>24 %</b>.
@@ -354,7 +605,7 @@ El dinero compró acceso a los botes salvavidas.
             category_orders={"Clase": CLASS_ORDER},
         )
         fig.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
-        st.plotly_chart(fig, use_container_width=True)
+        render_chart(fig)
     with col2:
         fig = go.Figure(data=go.Heatmap(
             z=pivot.values,
@@ -368,7 +619,7 @@ El dinero compró acceso a los botes salvavidas.
         ))
         fig.update_layout(title="Mapa de Calor: Supervivencia por Clase y Sexo",
                           xaxis_title="Sexo", yaxis_title="Clase")
-        st.plotly_chart(fig, use_container_width=True)
+        render_chart(fig)
 
     st.markdown("""<div class="insight-box">
 💡 <b>Hallazgo:</b> El protocolo se aplicó de forma <b>desigual</b>:
@@ -389,7 +640,7 @@ Ser mujer ayudaba; ser mujer <em>y rica</em> era lo que realmente salvaba.
         title="Distribución de Edades: Supervivientes vs. Fallecidos",
         labels={"Age": "Edad", "count": "Pasajeros"},
     )
-    st.plotly_chart(fig, use_container_width=True)
+    render_chart(fig)
 
     df_age["GrupoEdad"] = pd.cut(
         df_age["Age"],
@@ -407,7 +658,7 @@ Ser mujer ayudaba; ser mujer <em>y rica</em> era lo que realmente salvaba.
         labels={"GrupoEdad": "Grupo de Edad", "Porcentaje": "Tasa de Supervivencia (%)"},
     )
     fig.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
-    st.plotly_chart(fig, use_container_width=True)
+    render_chart(fig)
 
     st.markdown("""<div class="insight-box">
 💡 <b>Hallazgo:</b> Los niños menores de 12 años tuvieron la mayor tasa de supervivencia (<b>57 %</b>).
@@ -438,7 +689,7 @@ elif selected == "🔗  IV. Patrones y Correlaciones":
         colorbar=dict(title="Correlación"),
     ))
     fig.update_layout(title="Mapa de Correlaciones entre Variables Numéricas", height=480)
-    st.plotly_chart(fig, use_container_width=True)
+    render_chart(fig)
 
     st.markdown("""<div class="insight-box">
 💡 <b>Hallazgo:</b>
@@ -464,7 +715,7 @@ Supervivencia ↔ Clase (<b>−0.34</b>): la clase social es el predictor numér
             labels={"Cantidad": "Pasajeros"},
             category_orders={"Clase": CLASS_ORDER},
         )
-        st.plotly_chart(fig, use_container_width=True)
+        render_chart(fig)
     with col2:
         fig = px.bar(
             port_pct, x="Puerto", y="Porcentaje",
@@ -476,7 +727,7 @@ Supervivencia ↔ Clase (<b>−0.34</b>): la clase social es el predictor numér
         )
         fig.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
         fig.update_layout(showlegend=False)
-        st.plotly_chart(fig, use_container_width=True)
+        render_chart(fig)
 
     st.markdown("""<div class="insight-box">
 💡 <b>Hallazgo:</b> Cherbourg (Francia) tuvo <b>55 %</b> de supervivencia porque embarcó más pasajeros de
@@ -500,7 +751,7 @@ El puerto en sí no salvaba vidas — era la <b>clase social del pasajero</b>.
     fig.add_hline(y=global_rate, line_dash="dash", line_color="gray",
                   annotation_text=f"Media global: {global_rate:.1f}%")
     fig.update_traces(marker=dict(size=10))
-    st.plotly_chart(fig, use_container_width=True)
+    render_chart(fig)
 
     group_surv = (df.groupby("FamilyGroup")["Survived"].mean() * 100).round(1).reset_index()
     group_surv.columns = ["GrupoFamiliar", "Porcentaje"]
@@ -514,7 +765,7 @@ El puerto en sí no salvaba vidas — era la <b>clase social del pasajero</b>.
     )
     fig.update_traces(texttemplate="%{text:.1f}%", textposition="outside")
     fig.update_layout(showlegend=False)
-    st.plotly_chart(fig, use_container_width=True)
+    render_chart(fig)
 
     st.markdown("""<div class="insight-box">
 💡 <b>Hallazgo:</b> Relación no lineal fascinante:
@@ -615,7 +866,7 @@ elif selected == "📊  V. Dashboard Final":
         title_font_size=18,
         barmode="overlay",
     )
-    st.plotly_chart(fig, use_container_width=True)
+    render_chart(fig)
 
     st.markdown("---")
     st.markdown("### Conclusiones Finales")

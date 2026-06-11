@@ -6,7 +6,11 @@ Aplicación web interactiva construida con **Streamlit** que narra la tragedia d
 
 ## Demo
 
-<!-- Demo video -->
+
+
+https://github.com/user-attachments/assets/10de72f6-6e25-4b5b-84c7-e3f333e27c0f
+
+
 
 ---
 

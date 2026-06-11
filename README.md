@@ -46,7 +46,7 @@ plotly
 ### 1. Clonar el repositorio
 
 ```bash
-git clone <url-del-repositorio>
+git clone https://github.com/MajoRodri/Titanic
 cd Titanic
 ```
 
@@ -87,6 +87,30 @@ La aplicación se abrirá automáticamente en `http://localhost:8501`.
 
 ---
 
+## Docker
+
+### Opción A — Usar la imagen publicada en Docker Hub
+
+```bash
+docker pull majorodri/titanic-app
+docker run -p 8501:8501 majorodri/titanic-app
+```
+
+Abre `http://localhost:8501` en tu navegador.
+
+> **Nota:** el dataset (`Titanic-Dataset.csv`) está incluido en la imagen, por lo que no necesitas montarlo manualmente.
+
+### Opción B — Construir la imagen localmente
+
+```bash
+git clone https://github.com/MajoRodri/Titanic
+cd Titanic
+docker build -t titanic-app .
+docker run -p 8501:8501 titanic-app
+```
+
+---
+
 ## Estructura del proyecto
 
 ```
@@ -94,6 +118,9 @@ Titanic/
 ├── app.py               # Aplicación Streamlit principal
 ├── Titanic-Dataset.csv  # Dataset (no incluido en el repositorio)
 ├── Titanic.ipynb        # Notebook exploratorio
+├── Dockerfile           # Imagen Docker de la aplicación
+├── .dockerignore        # Archivos excluidos del build
+├── requirements.txt     # Dependencias Python
 ├── venv/                # Entorno virtual (no incluido en git)
 └── README.md
 ```
